@@ -11,9 +11,9 @@
 
 
 Для обратной интеграции можно использовать следующие действия (урл-параметры):
--addTags[]=
--delTags[]=
--addFunnels[]=
--delFunnels[]=
--variables[название переменной]=
--triggers[]=
+- addTags[]=
+- delTags[]=
+- addFunnels[]=
+- delFunnels[]=
+- variables[название переменной]=
+- triggers[]=
