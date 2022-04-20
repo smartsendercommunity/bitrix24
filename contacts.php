@@ -38,7 +38,13 @@ if ($input["action"] == "delete") { // Удаление контакта
     }
     echo send_request($auth["client_endpoint"]."crm.contact.delete?auth=".$auth["access_token"]."&id=".$input["id"]);
 } else if ($input["action"] == "get") { // Чтение контакта
-    if ($input["id"] == NULL) {
+    if (file_exists("users.json") === true) {
+        $usersData = json_decode(file_get_contents("users.json"), true);
+        if ($usersData[$input["userId"]] != NULL) {
+            $contactId = $usersData[$input["userId"]];
+        } 
+    }
+    if ($input["id"] == NULL && $contactId == NULL) {
         $result["state"] = false;
         $result["message"]["id"] = "id is required to get a contact";
         echo json_encode($result);
