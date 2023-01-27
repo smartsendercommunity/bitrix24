@@ -54,6 +54,7 @@ if ($input["action"] == "get") { // Чтение сделки/сделок
             }
         }
         echo str_replace($search, $replace, $result);
+        exit;
     } else {
         $result = send_request($auth["client_endpoint"]."crm.deal.get?auth=".$auth["access_token"]."&id=".$input["dealId"]);
         $getFields = json_decode(send_request($auth["client_endpoint"]."crm.deal.fields?auth=".$auth["access_token"]), true);
@@ -66,6 +67,7 @@ if ($input["action"] == "get") { // Чтение сделки/сделок
             }
         }
         echo str_replace($search, $replace, $result);
+        exit;
     }
 } else { // Создание или обновление сделки
     $getFields = json_decode(send_request($auth["client_endpoint"]."crm.deal.fields?auth=".$auth["access_token"]."&id=".$input["id"]), true);
