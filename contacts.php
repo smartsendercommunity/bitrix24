@@ -61,6 +61,7 @@ if ($input["action"] == "delete") { // Удаление контакта
         }
     }
     echo str_replace($search, $replace, $result);
+    exit;
 } else if ($input["action"] == "search") { // Поиск контакта
     $result["state"] = false;
     $result["message"]["action"] = "search not production";
