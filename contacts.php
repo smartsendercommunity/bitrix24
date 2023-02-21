@@ -38,20 +38,22 @@ if ($input["action"] == "delete") { // Удаление контакта
     }
     echo send_request($auth["client_endpoint"]."crm.contact.delete?auth=".$auth["access_token"]."&id=".$input["id"]);
 } else if ($input["action"] == "get") { // Чтение контакта
-    if (file_exists("users.json") === true) {
+    if ($input["id"] != NULL) {
+        $contactId = $input["id"];
+    } else if (file_exists("users.json") === true) {
         $usersData = json_decode(file_get_contents("users.json"), true);
         if ($usersData[$input["userId"]] != NULL) {
             $contactId = $usersData[$input["userId"]];
         } 
     }
-    if ($input["id"] == NULL && $contactId == NULL) {
+    if ($contactId == NULL) {
         $result["state"] = false;
         $result["message"]["id"] = "id is required to get a contact";
         echo json_encode($result);
         exit;
     }
-    $result = send_request($auth["client_endpoint"]."crm.contact.get?auth=".$auth["access_token"]."&id=".$input["id"]);
-    $getFields = json_decode(send_request($auth["client_endpoint"]."crm.contact.fields?auth=".$auth["access_token"]."&id=".$input["id"]), true);
+    $result = send_request($auth["client_endpoint"]."crm.contact.get?auth=".$auth["access_token"]."&id=".$contactId);
+    $getFields = json_decode(send_request($auth["client_endpoint"]."crm.contact.fields?auth=".$auth["access_token"]), true);
     if (is_array($getFields["result"]) === true) {
         foreach ($getFields["result"] as $oneField) {
             if ($oneField["title"] != NULL && $oneField["listLabel"] != NULL) {
