@@ -58,7 +58,7 @@ if (array_key_exists("files", $getMessage) === true) {
     $send["type"] = "text";
     $send["watermark"] = 1;
     if (stripos($getMessage["text"], "[br]") !== false) {
-        $send["content"] = explode("[br] ", $getMessage["text"])[1];
+        $send["content"] = explode("[br]", $getMessage["text"])[1];
     } else {
         $send["content"] = $getMessage["text"];
     }
